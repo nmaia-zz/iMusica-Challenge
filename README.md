@@ -7,7 +7,5 @@ This repo was created in order to build a small system to control the employee r
 - [ ] Web Api (Restful) :heart_eyes:
 - [ ] N-Hibernate (ORM) :yum:
 - [ ] JQuery :eyes:
-- [ ] Razor :eyes:
+- [ ] .Net Razor :eyes:
 - [x] loading... :hourglass_flowing_sand:
-
-## 
