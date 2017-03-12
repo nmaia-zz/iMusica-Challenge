@@ -1,5 +1,0 @@
-C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Entities\bin\Debug\Project.Entities.dll
-C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Entities\bin\Debug\Project.Entities.pdb
-C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Entities\obj\Debug\Project.Entities.csprojResolveAssemblyReference.cache
-C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Entities\obj\Debug\Project.Entities.dll
-C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Entities\obj\Debug\Project.Entities.pdb
