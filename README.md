@@ -4,7 +4,7 @@ This repo was created in order to build a small system to control the employee r
 
 ## Branch status
 
-![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.svg?branch=master)
+iMusica-Service.sln ![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.svg?branch=master)
 
 ## We'll use the following stack :point_down:
 
