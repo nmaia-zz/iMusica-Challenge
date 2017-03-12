@@ -1,0 +1,5 @@
+C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Infra.Repository\bin\Debug\Project.Infra.dll
+C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Infra.Repository\bin\Debug\Project.Infra.pdb
+C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Infra.Repository\obj\Debug\Project.Infra.Repository.csprojResolveAssemblyReference.cache
+C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Infra.Repository\obj\Debug\Project.Infra.dll
+C:\Users\gmnat\OneDrive\Documentos\GitHub\iMusica-Challenge\iMusica-Service\Project.Infra.Repository\obj\Debug\Project.Infra.pdb
