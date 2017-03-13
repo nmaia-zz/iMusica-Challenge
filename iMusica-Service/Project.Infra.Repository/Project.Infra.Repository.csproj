@@ -58,6 +58,7 @@
     <Compile Include="Repository\DependentRepository.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Util\HibernateUtil.cs" />
   </ItemGroup>
   <ItemGroup>

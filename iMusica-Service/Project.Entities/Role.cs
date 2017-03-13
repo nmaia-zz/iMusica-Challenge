@@ -10,6 +10,7 @@ namespace Project.Entities
 
         public virtual Guid Id { get; set; }
         public virtual RoleType RoleType { get; set; }
+        public virtual Guid IdEmployee { get; set; }
 
         #endregion
 

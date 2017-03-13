@@ -12,14 +12,14 @@ namespace Project.Entities
         public virtual string Name { get; set; }
         public virtual string Email { get; set; }
         public virtual DateTime BirthDate { get; set; }
-        public virtual Genre Genre { get; set; }
+        public virtual Gender Gender { get; set; }
 
         #endregion
 
         #region ' Relationships '
 
         public virtual Role Role { get; set; }
-        public virtual IEnumerable<Dependent> Dependents  { get; set; }
+        public virtual IList<Dependent> Dependents  { get; set; }
 
         #endregion
 

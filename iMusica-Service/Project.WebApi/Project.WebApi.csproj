@@ -90,9 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +106,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Project.Entities\Project.Entities.csproj">
+      <Project>{610773dc-f3e5-45f1-a6f8-b8743ae3cbc4}</Project>
+      <Name>Project.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Infra.Repository\Project.Infra.Repository.csproj">
+      <Project>{9017D75C-CE02-4DB8-A0CC-C8CDF3526447}</Project>
+      <Name>Project.Infra.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

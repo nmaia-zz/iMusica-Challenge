@@ -28,9 +28,12 @@ namespace Project.Infra.Mapping
             Map(e => e.BirthDate, "BirthDate")
                 .Nullable();
 
-            Map(e => e.Genre, "Genre")
+            Map(e => e.Gender, "Gender")
                 .Length(6)
                 .Not.Nullable();
+
+            //Map(e => e.Role.Id, "IdRole")
+            //    .Not.Nullable();
 
             #endregion
 

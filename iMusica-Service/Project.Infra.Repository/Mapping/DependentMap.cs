@@ -15,9 +15,9 @@ namespace Project.Infra.Mapping
 
             #region ' Columns '
 
-            Id(e => e.Id, "IdEmployee");
+            Id(d => d.Id, "IdDependent");
 
-            Map(e => e.Name, "Name")
+            Map(d => d.Name, "Name")
                 .Length(100)
                 .Not.Nullable();
 
