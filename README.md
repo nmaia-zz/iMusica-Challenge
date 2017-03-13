@@ -14,7 +14,7 @@ iMusica-Service.sln ![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.s
 - [ ] .Net Razor :eyes:
 - [x] loading... :hourglass_flowing_sand:
 
-## UML POCO (Plain Old C# Object) Class Digram v1.0
+## UML POCO (Plain Old C# Object) Class Digram v1.1
 
 ![UML Class Diagram](/Images/ClassDiagram/ClassDiagram_v1.1.png)
 
