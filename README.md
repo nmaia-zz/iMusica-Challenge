@@ -16,7 +16,7 @@ iMusica-Service.sln ![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.s
 
 ## UML POCO (Plain Old C# Object) Class Digram v1.0
 
-![UML Class Diagram](/Images/ClassDiagram/ClassDiagram_v1.0.png)
+![UML Class Diagram](/Images/ClassDiagram/ClassDiagram_v1.1.png)
 
 ## SQL Scripts to create solution tables v1.1
 
