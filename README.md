@@ -2,7 +2,7 @@
 
 This repo was created in order to build a small system to control the employee register via web.
 
-## Branch status
+## Build status
 
 iMusica-Service.sln ![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.svg?branch=master)
 
