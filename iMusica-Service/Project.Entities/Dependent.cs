@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project.Entities
 {
@@ -12,6 +8,12 @@ namespace Project.Entities
 
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
+
+        #endregion
+
+        #region ' Relationships '
+
+        public virtual Employee Employee { get; set; }
 
         #endregion
 

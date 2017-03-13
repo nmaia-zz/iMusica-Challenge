@@ -1,9 +1,6 @@
 ﻿using Project.Entities.Enum;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project.Entities
 {
@@ -13,6 +10,12 @@ namespace Project.Entities
 
         public virtual Guid Id { get; set; }
         public virtual RoleType RoleType { get; set; }
+
+        #endregion
+
+        #region ' Relationships '
+
+        public virtual IList<Employee> Employees { get; set; }
 
         #endregion
 
