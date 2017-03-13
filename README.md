@@ -27,7 +27,8 @@ create table Employee (
 	[Name] varchar(100) not null,
 	Email varchar(100),
 	BirthDate datetime,
-	Genre varchar(6) not null constraint ck_employee_genre check (Genre in ('Female', 'Male')),
+	Gender varchar(6) not null constraint ck_employee_genre check (Gender in ('Female', 'Male')),
+	--IdRole uniqueidentifier not null,
 
 	primary key(IdEmployee)
 );
