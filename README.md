@@ -72,7 +72,7 @@ insert into Employee values ((select NEWID()), 'Joao da Silva', 'josilva@mail.co
 insert into Employee values ((select NEWID()), 'Ana Beatriz Muniz', 'amuniz@mail.com', '19840312', 'Female', '19305936-E8F7-4C3B-A524-AC1B3FAA5A13');
 
 -- [ scripts to create the dependents of employees  ] --
--- these command are using an example of guid for the last column (get the correct IdEmployee in the employee table)
+-- these commands are using an example of guid for the last column (get the correct IdEmployee in the employee table)
 
 insert into [Dependent] values ((select NEWID()), 'Bruna da Silva', '6506FAB7-2C26-4736-B16C-AD26F02B29CA');
 insert into [Dependent] values ((select NEWID()), 'Jackson da Silva', '6506FAB7-2C26-4736-B16C-AD26F02B29CA');
