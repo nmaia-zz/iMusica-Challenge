@@ -22,34 +22,34 @@ iMusica-Service.sln ![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.s
 
 ```
 go
-create table Employee (
-	IdEmployee uniqueidentifier,
-	[Name] varchar(100) not null,
-	Email varchar(100),
-	BirthDate datetime,
-	Gender varchar(6) not null constraint ck_employee_genre check (Gender in ('Female', 'Male')),
-	--IdRole uniqueidentifier not null,
+create table [Role] (
+    IdRole uniqueidentifier,
+    RoleType varchar(16) not null constraint ck_role_type check (RoleType in ('Business Analyst', 'System Analyst', 'Project Manager', 'IT Director', 'Human Resource')),
 
-	primary key(IdEmployee)
+    primary key (IdRole)
 );
 
 go
-create table [Role] (
-	IdRole uniqueidentifier,
-	RoleType varchar(16) not null constraint ck_role_type check (RoleType in ('Business Analyst', 'System Analyst', 'Project Manager', 'IT Director', 'Human Resource')),
-	IdEmployee uniqueidentifier not null,
+create table Employee (
+    IdEmployee uniqueidentifier,
+    [Name] varchar(100) not null,
+    Email varchar(100),
+    BirthDate datetime,
+    Gender varchar(6) not null constraint ck_employee_genre check (Gender in ('Female', 'Male')),
+    IdRole uniqueidentifier not null,
 
-	primary key (IdRole),
-	constraint fk_employee_role foreign key (IdEmployee) references Employee(IdEmployee)
+    primary key(IdEmployee),
+	constraint fk_role_employee foreign key (IdRole) references [Role](IdRole)
 );
 
 go
 create table [Dependent] (
-	IdDependent uniqueidentifier,
-	[Name] varchar(100) not null,
-	IdEmployee uniqueidentifier not null,
+    IdDependent uniqueidentifier,
+    [Name] varchar(100) not null,
+	IdEmployee uniqueidentifier not null
 
-	primary key (IdDependent),
+    primary key (IdDependent),
 	constraint fk_employee_dependent foreign key (IdEmployee) references Employee(IdEmployee)
 );
+
 ```
