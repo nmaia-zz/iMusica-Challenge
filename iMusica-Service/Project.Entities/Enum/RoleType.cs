@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Project.Entities.Enum
 {
+    [Obsolete("This enum has been changed by string property in the class")]
     public enum RoleType
     { 
         [Display(Name = "Business Analyst")]

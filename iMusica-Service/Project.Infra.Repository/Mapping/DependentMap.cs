@@ -25,9 +25,6 @@ namespace Project.Infra.Mapping
 
             #region ' Relationships '
 
-            //References(d => d.Employee)
-            //    .Column("Employee");
-
             References(d => d.Employee)
                 .Column("IdEmployee");
 

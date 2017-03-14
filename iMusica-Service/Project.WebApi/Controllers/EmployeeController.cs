@@ -31,13 +31,12 @@ namespace Project.WebApi.Controllers
                     Name = model.Name,
                     Email = model.Email,
                     BirthDate = model.BirthDate,
-                    Gender = (Gender) Enum.Parse(typeof(Gender), model.Gender)
+                    Gender = (Gender) Enum.Parse(typeof(Gender), model.Gender),
+                    Role = new Role()
                 };
 
-                emp.Role = new Role()
-                {
-                    RoleType = (RoleType)Enum.Parse(typeof(RoleType), model.RoleType)
-                };
+                var IdRole = _roleRepository.GetRoleIdByType(model.RoleType);
+                emp.Role = _roleRepository.GetById(IdRole);
 
                 if (model.Dependents.Any())
                 {
@@ -54,9 +53,67 @@ namespace Project.WebApi.Controllers
                     }
                 }
 
-                _empRepository.Insert(emp);              
+                _empRepository.Insert(emp);
 
                 return Request.CreateResponse(HttpStatusCode.OK, "Employee has been registered successfully.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("edit")]
+        public HttpResponseMessage Put(EmployeeViewModelEdition model)
+        {
+            try
+            {
+                Employee emp = _empRepository.GetById(model.Id);
+
+                emp.Name = model.Name;
+                emp.Email = model.Email;
+                emp.BirthDate = model.BirthDate;
+                emp.Gender = (Gender) Enum.Parse(typeof(Gender), model.Gender);
+                emp.Role.RoleType = model.RoleType;
+
+                foreach (var dep in emp.Dependents)
+                {
+                    foreach (var name in model.Dependents)
+                    {
+                        dep.Name = name;
+                    }
+                }
+
+                _empRepository.Update(emp);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Employee data has been updated successfully.");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public HttpResponseMessage Delete(Guid id)
+        {
+            try
+            {
+                Employee emp = _empRepository.GetById(id);
+
+                if (emp != null)
+                {
+                    _empRepository.Delete(emp);
+
+                    return Request.CreateResponse(HttpStatusCode.OK, "Employee has been removed successfully.");
+                }
+                else
+                {
+                    throw new Exception("Employee not found.");
+                }                
             }
             catch (Exception ex)
             {
@@ -74,13 +131,15 @@ namespace Project.WebApi.Controllers
 
                 foreach (var emp in _empRepository.GetAll())
                 {
+                    var role = _roleRepository.GetById(emp.Role.Id);
+
                     var model = new EmployeeViewModelRequest()
                     {
                         Id = emp.Id,
                         Name = emp.Name,
                         Email = emp.Email,
                         BirthDate = emp.BirthDate,
-                        RoleType = emp.Role.RoleType.ToString(),
+                        RoleType = role.RoleType,
                         Gender = emp.Gender.ToString(),
                         DependentsQuantity = _depRepository.QttyOfDependentsForEachEmployee(emp.Id)
                     };
@@ -89,6 +148,29 @@ namespace Project.WebApi.Controllers
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK, list);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("searchEmployeesByName/{name}")]
+        public HttpResponseMessage SearchEmployeesByName(string name)
+        {
+            try
+            {
+                var list = _empRepository.GetEmployeesByName(name);
+
+                if (list.Any())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, list);
+                }
+                else
+                {
+                    throw new Exception("No one employee has been found.");
+                }
             }
             catch (Exception ex)
             {

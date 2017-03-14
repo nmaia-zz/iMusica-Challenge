@@ -1,6 +1,4 @@
-﻿using Project.Entities.Enum;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Project.Entities
 {
@@ -9,14 +7,7 @@ namespace Project.Entities
         #region ' Properties '
 
         public virtual Guid Id { get; set; }
-        public virtual RoleType RoleType { get; set; }
-        public virtual Guid IdEmployee { get; set; }
-
-        #endregion
-
-        #region ' Relationships '
-
-        public virtual IList<Employee> Employees { get; set; }
+        public virtual string RoleType { get; set; }
 
         #endregion
 
@@ -24,7 +15,7 @@ namespace Project.Entities
 
         public Role()
         {
-            Id = Guid.NewGuid();
+
         }
 
         #endregion

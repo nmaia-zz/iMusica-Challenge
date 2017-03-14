@@ -22,19 +22,6 @@ namespace Project.Infra.Mapping
                 .Not.Nullable();
 
             #endregion
-
-            #region ' Relationships '
-
-            //HasMany(r => r.Employees)
-            //    .Inverse()
-            //    .Cascade.All()
-            //    .KeyColumn("Role");
-
-            HasMany(r => r.Employees)
-                .KeyColumn("IdRole")
-                .Inverse();
-
-            #endregion
         }
     }
 }

@@ -32,20 +32,9 @@ namespace Project.Infra.Mapping
                 .Length(6)
                 .Not.Nullable();
 
-            //Map(e => e.Role.Id, "IdRole")
-            //    .Not.Nullable();
-
             #endregion
 
             #region ' Relationships '
-
-            //HasMany(e => e.Dependents)
-            //    .Inverse()
-            //    .Cascade.All()
-            //    .KeyColumn("Employee");
-
-            //References(e => e.Role)
-            //    .Column("Role");
 
             HasMany(e => e.Dependents)
                 .KeyColumn("IdEmployee")
