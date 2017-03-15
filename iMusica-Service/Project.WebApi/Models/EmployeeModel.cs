@@ -11,7 +11,7 @@ namespace Project.WebApi.Models
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
         public string RoleType { get; set; }
-        public IList<string> Dependents { get; set; }
+        public string[] Dependents { get; set; }
     }
 
     public class EmployeeViewModelEdition

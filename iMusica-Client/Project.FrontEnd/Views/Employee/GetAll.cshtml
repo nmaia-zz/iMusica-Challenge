@@ -12,7 +12,61 @@
         }
     </style>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:53343/api/employee/getAll",
+                success: function (data) {
+
+                    var content = "";
+                    $("#dataTable tbody").empty();
+
+                    for (var i = 0; i < data.length; i++) {
+                        content += "<tr>";
+                        content += "<td>" + data[i].Id + "</td>";
+                        content += "<td>" + data[i].Name + "</td>";
+                        content += "<td>" + data[i].Email + "</td>";
+                        content += "<td>" + data[i].Gender + "</td>";
+                        content += "<td>" + data[i].BirthDate + "</td>";
+                        content += "<td>" + data[i].RoleType + "</td>";
+                        content += "<td>" + data[i].DependentsQuantity + "</td>";
+                        content += "<td>" + '<button class="btn btn-primary btn-sm">Edit</button><button class="btn btn-danger btn-sm">Delete</button>' + "</td>";
+                        content += "</tr>";
+                    }
+
+                    $("#dataTable").append(content);
+                },
+                error: function (e) {
+                    $("#message").html("Error: " + e.status);
+                }
+            });
+        });
+    </script>
+
 }
 
-<h2>GetAll</h2>
+<h2>Employees List</h2>
 
+<table id="dataTable" class="table table-hover">
+    <thead>
+        <tr> 
+            <th>Id</th> 
+            <th>Name</th> 
+            <th>E-mail</th>
+            <th>Gender</th>
+            <th>Birth Date</th>
+            <th>Role</th>
+            <th>Dependents Amount</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+    <tfoot> 
+        @*<tr> 
+            <td colspan="3"> Employees amount: <span id="employeesAmount"></span> </td> 
+        </tr>*@ 
+    </tfoot>
+</table>

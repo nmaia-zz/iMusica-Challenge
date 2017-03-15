@@ -12,10 +12,87 @@
         }
     </style>
 
+    @* script to add and remove dependent textfield dynamically *@
     <script type="text/javascript">
 
+        $(document).ready(function () {
+
+            var wrapper = $(".input_fields_wrap");
+            var add_button = $(".add_field_button");
+
+            var x = 0;
+            $(add_button).click(function (e) {
+                e.preventDefault();
+                x++;
+                $(wrapper).append(
+                    '<div id="additionalDependent" class="row">' +
+                        '<div class="col-md-11 input-group" style="margin: 5px 0 0 0;">' +
+                            '<input type="text" id="dependent_' + x + '" name="mytext[]" class="form-control"/>' +
+                                '<span class="input-group-btn">' +
+                                    '<a href="#" class="remove_field btn btn-danger btn-group"><span class="glyphicon glyphicon-remove"></span></a>' +
+                                '</span>' +
+                        '</div>' +
+                    '</div>'
+                );
+            });
+
+            $(wrapper).on("click", ".remove_field", function (e) {
+                e.preventDefault();
+                $("#additionalDependent").remove();
+                x--;
+            })
+        });
+
     </script>
-    
+
+    @* script to send data to the web api via json *@
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+                $("#btnRegister").click(
+                    function () {
+
+                        //variable for test
+                        var depTest = $("#dependent_0").val(); //at this point the varibale value is ok
+
+                        var data = {
+                            name: $("#name").val(),
+                            email: $("#email").val(),
+                            birthDate: $("#birthDate").val(),
+                            gender: $("#gender").val(),                          
+                            dependents: [
+                                { "name": depTest } //at this point is ok too, but the api is not getting the value correctly
+                            ]
+                        };
+
+                        $.ajax(
+                            {
+                                type: "POST",
+                                url: "http://localhost:53343/api/employee/register",
+                                data: JSON.stringify(data),
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8",
+                                success: function (msg) {
+                                    $("#message").html(msg.d);
+
+                                    //cleaning all the fields
+                                    $("#name").val("");
+                                    $("#email").val("");
+                                    $("#birthDate").val("");
+                                    $("#gender").val("");
+                                    $("#dependent_0").val("");
+                                },
+                                error: function (e) {
+                                    $("#message").html("Error: " + e.status);
+                                }
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    </script>
+
 }
 
 <h2>Employee Register</h2>
@@ -33,18 +110,13 @@
         <label>Birth Date:</label><br />
         <input type="date" id="birthDate" class="form-control" />
         <br />
-
-        <button id="btnRegister" class="btn btn-primary btn-lg">
-            Register
-        </button>
-
-        <br /><br />
-        <div id="message"></div>
     </div>
     <div class="col-md-4">
         <label>Gender:</label><br />
         <select class="form-control">
-            <option value="0">-- Choose here --</option>
+            <option value="0" selected="selected">-- Choose here --</option>
+            <option value="1">Female</option>
+            <option value="2">Male</option>
         </select>
         <br />
 
@@ -54,14 +126,28 @@
         </select>
         <br />
     </div>
-    <div class="col-md-3">
-        <label>Dependent(s):</label><br />
-        <div class="input-group">
-            <input type="text" class="form-control">
-            <span class="input-group-btn">
-                <button class="btn btn-danger btn-group" type="button"> - </button>
-                <button class="btn btn-success btn-group" type="button"> + </button>
-            </span>
+    <div class="col-md-4">
+        <div class="input_fields_wrap">
+            <div class="row">
+                <div class="col-md-11 input-group">
+                    <label>Dependent(s):</label>
+                    <input type="text" id="dependent_0" name="mytext[]" class="form-control" style="border-radius: 4px;" />
+                    <span class="input-group-btn">
+                        <a href="#" class="add_field_button btn btn-success btn-group" style="margin-top: 25px;"><span class="glyphicon glyphicon-plus"></span></a>
+                    </span>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <button id="btnRegister" class="btn btn-primary btn-lg">
+            Register
+        </button>
+
+        <br /><br />
+        <div id="message"></div>
     </div>
 </div>
