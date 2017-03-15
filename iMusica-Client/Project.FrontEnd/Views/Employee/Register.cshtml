@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head {
+
+    <style>
+        body {
+            background-image: url(../../Images/Patterns/bg_pt.png);
+            background-repeat: repeat;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+    </script>
+    
+}
+
+<h2>Employee Register</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <label>Name:</label><br />
+        <input type="text" id="name" class="form-control" />
+        <br />
+
+        <label>E-mail:</label><br />
+        <input type="email" id="email" class="form-control" />
+        <br />
+
+        <label>Birth Date:</label><br />
+        <input type="date" id="birthDate" class="form-control" />
+        <br />
+
+        <button id="btnRegister" class="btn btn-primary btn-lg">
+            Register
+        </button>
+
+        <br /><br />
+        <div id="message"></div>
+    </div>
+    <div class="col-md-4">
+        <label>Gender:</label><br />
+        <select class="form-control">
+            <option value="0">-- Choose here --</option>
+        </select>
+        <br />
+
+        <label>Role:</label><br />
+        <select class="form-control">
+            <option value="0">-- Choose here --</option>
+        </select>
+        <br />
+    </div>
+    <div class="col-md-3">
+        <label>Dependent(s):</label><br />
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-danger btn-group" type="button"> - </button>
+                <button class="btn btn-success btn-group" type="button"> + </button>
+            </span>
+        </div>
+    </div>
+</div>
