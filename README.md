@@ -8,10 +8,10 @@ iMusica-Service.sln ![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.s
 
 ## We'll use the following stack
 
-- [ ] Web Api (Restful)
-- [ ] N-Hibernate (ORM)
-- [ ] JQuery 
-- [ ] .Net Razor
+- [x] Web Api (Restful)
+- [x] N-Hibernate (ORM)
+- [x] JQuery 
+- [x] .Net Razor
 
 ## Here is some information you need to know in order to test this project locally
 
