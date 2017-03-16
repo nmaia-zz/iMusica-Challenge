@@ -13,7 +13,7 @@ namespace Project.Entities
         public virtual string Email { get; set; }
         public virtual DateTime BirthDate { get; set; }
         public virtual Gender Gender { get; set; }
-
+        public virtual Guid IdRole { get; set; }
         #endregion
 
         #region ' Relationships '

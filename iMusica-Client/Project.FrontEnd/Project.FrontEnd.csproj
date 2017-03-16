@@ -104,10 +104,14 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Patterns\bg_pt.png" />
+    <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Styles\dataTables.bootstrap.min.css" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Styles\jquery.dataTables.css" />
     <Content Include="Styles\Patterns\BodyBackgroundPattern.css" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />

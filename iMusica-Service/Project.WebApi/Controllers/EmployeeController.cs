@@ -30,13 +30,12 @@ namespace Project.WebApi.Controllers
                 {
                     Name = model.Name,
                     Email = model.Email,
-                    BirthDate = model.BirthDate,
+                    BirthDate = Convert.ToDateTime(model.BirthDate),
                     Gender = (Gender) Enum.Parse(typeof(Gender), model.Gender),
                     Role = new Role()
                 };
 
-                var IdRole = _roleRepository.GetRoleIdByType(model.RoleType);
-                emp.Role = _roleRepository.GetById(IdRole);
+                emp.Role = _roleRepository.GetById(model.IdRole);
 
                 if (model.Dependents.Any())
                 {
@@ -63,6 +62,50 @@ namespace Project.WebApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("getById/{id}")]
+        public HttpResponseMessage GetById(Guid id)
+        {
+            try
+            {
+                var emp = _empRepository.GetById(id);
+
+                var role = _roleRepository.GetById(emp.Role.Id);
+                emp.Role = role;
+                emp.IdRole = emp.Role.Id;
+
+                var model = new EmployeeViewModelEdition()
+                {
+                    Id = emp.Id,
+                    Name = emp.Name,
+                    Email = emp.Email,
+                    Gender = emp.Gender.ToString(),
+                    BirthDate = emp.BirthDate.ToString(),
+                    IdRole = emp.IdRole
+                };
+
+
+
+                emp.Dependents = _depRepository.GetAll().Where(x => x.Employee.Id == emp.Id).ToList();
+
+                if (emp.Dependents.Any())
+                {
+                    model.Dependents = new List<string>();
+
+                    foreach (var dep in emp.Dependents)
+                    {
+                        model.Dependents.Add(dep.Name);
+                    }
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, model);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
         [HttpPut]
         [Route("edit")]
         public HttpResponseMessage Put(EmployeeViewModelEdition model)
@@ -70,20 +113,20 @@ namespace Project.WebApi.Controllers
             try
             {
                 Employee emp = _empRepository.GetById(model.Id);
+                emp.Role = _roleRepository.GetById(model.IdRole);
 
                 emp.Name = model.Name;
                 emp.Email = model.Email;
-                emp.BirthDate = model.BirthDate;
+                emp.BirthDate = Convert.ToDateTime(model.BirthDate);
                 emp.Gender = (Gender) Enum.Parse(typeof(Gender), model.Gender);
-                emp.Role.RoleType = model.RoleType;
 
-                foreach (var dep in emp.Dependents)
-                {
-                    foreach (var name in model.Dependents)
-                    {
-                        dep.Name = name;
-                    }
-                }
+                //foreach (var dep in emp.Dependents) //ToDo: refazer esta logica para considerar o length dos dependentes antigos e novose
+                //{
+                //    foreach (var name in model.Dependents)
+                //    {
+                //        dep.Name = name;
+                //    }
+                //}
 
                 _empRepository.Update(emp);
 
@@ -138,7 +181,7 @@ namespace Project.WebApi.Controllers
                         Id = emp.Id,
                         Name = emp.Name,
                         Email = emp.Email,
-                        BirthDate = emp.BirthDate,
+                        BirthDate = emp.BirthDate.ToString(),
                         RoleType = role.RoleType,
                         Gender = emp.Gender.ToString(),
                         DependentsQuantity = _depRepository.QttyOfDependentsForEachEmployee(emp.Id)

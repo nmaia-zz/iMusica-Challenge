@@ -12,10 +12,6 @@
         }
     </style>
 
-    <script type="text/javascript">
-
-    </script>
-
 }
 
 <h2>Employee Edit</h2>
@@ -31,37 +27,193 @@
         <br />
 
         <label>Birth Date:</label><br />
-        <input type="date" id="birthDate" class="form-control" />
+        <input type="text" id="birthDate" class="form-control" />
+        <br />
+    </div>
+    <div class="col-md-4">
+        <label>Gender:</label><br />
+        <select id="gender" class="form-control">
+            <option value="0" selected="selected">-- Choose here --</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select>
         <br />
 
-        <button id="btnRegister" class="btn btn-success btn-lg">
+        <label>Role:</label><br />
+        <select class="form-control" id="roles" onchange="getval(this);">
+            <option value="0">-- Choose here --</option>
+        </select>
+        <br />
+    </div>
+    <div class="col-md-4">
+        <div class="input_fields_wrap">
+            <div class="row">
+                <div class="col-md-11 input-group">
+                    <label>Dependent(s):</label>
+                    <input type="text" id="dependent_0" name="mytext[]" class="form-control" style="border-radius: 4px;" />
+                    <span class="input-group-btn">
+                        <a href="#" class="add_field_button btn btn-success btn-group" style="margin-top: 25px;"><span class="glyphicon glyphicon-plus"></span></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <button id="btnSave" class="btn btn-success btn-lg">
             Save
         </button>
 
         <br /><br />
         <div id="message"></div>
     </div>
+</div>
+<br />
+<div class="row">
     <div class="col-md-4">
-        <label>Gender:</label><br />
-        <select class="form-control">
-            <option value="0">-- Choose here --</option>
-        </select>
-        <br />
-
-        <label>Role:</label><br />
-        <select class="form-control">
-            <option value="0">-- Choose here --</option>
-        </select>
-        <br />
-    </div>
-    <div class="col-md-3">
-        <label>Dependent(s):</label><br />
-        <div class="input-group">
-            <input type="text" class="form-control">
-            <span class="input-group-btn">
-                <button class="btn btn-danger btn-group" type="button"> - </button>
-                <button class="btn btn-success btn-group" type="button"> + </button>
-            </span>
-        </div>
+        <input type="hidden" readonly id="idEmployee" class="form-control" /><br />
+        <input type="hidden" readonly id="idRole" class="form-control" />
     </div>
 </div>
+
+<script type="text/javascript">
+
+    //get new value from role type
+    function getval(sel) {
+        return $("#idRole").val(sel.value);
+    }
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:53343/api/role/getAll/",
+        success: function (data) {
+
+            var wrapper = $("#roles");
+
+            for (var i = 0; i < data.length; i++) {
+                $(wrapper).append(
+                    '<option value="' + data[i].Id + '">' + data[i].RoleType + '</option>'
+                );
+            }
+        },
+        error: function (e) {
+            $("#message").html("Error: " + e.status);
+        }
+    });
+
+    var query = location.search.slice(1);
+    var partes = query.split('&');
+    var data = {};
+
+    var id;
+
+    partes.forEach(function (parte) {
+        var chaveValor = parte.split('=');
+        var chave = chaveValor[0];
+        var valor = chaveValor[1];
+        data[chave] = valor;
+
+        id = valor;
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:53343/api/employee/getById/" + id,
+        success: function (data) {
+
+            $("#name").val(data.Name);
+            $("#email").val(data.Email);
+            $("#birthDate").val(new Date(data.BirthDate).toLocaleDateString());
+            $("#gender").val(data.Gender);
+            $("#roles").val(data.IdRole);
+            $("#idRole").val(data.IdRole);
+            $("#idEmployee").val(data.Id);
+
+            var wrapper = $(".input_fields_wrap");
+
+            for (var i = 0; i < data.Dependents.length; i++) {
+                $(wrapper).append(
+                    '<div id="additionalDependent_' + i + '" class="row">' +
+                        '<div class="col-md-11 input-group" style="margin: 5px 0 0 0;">' +
+                            '<input type="text" id="dependent_' + i + '" name="mytext[]" class="form-control" value="' + data.Dependents[i] + '"/>' +
+                            '<span class="input-group-btn">' +
+                                '<a href="#" onClick="removeTextField(' + i + ')" class="remove_field btn btn-danger btn-group"><span class="glyphicon glyphicon-remove"></span></a>' +
+                            '</span>' +
+                        '</div>' +
+                    '</div>'
+                );
+            }
+        },
+        error: function (e) {
+            $("#message").html("Error: " + e.status);
+        }
+    });
+
+    $(document).ready(function () {
+
+        var wrapper = $(".input_fields_wrap");
+        var add_button = $(".add_field_button");
+
+        var x = 0;
+        $(add_button).click(function (e) {
+            e.preventDefault();
+            x++;
+            $(wrapper).append(
+                '<div id="additionalDependent_' + x + '" class="row">' +
+                '<div class="col-md-11 input-group" style="margin: 5px 0 0 0;">' +
+                '<input type="text" id="dependent_' + x + '" name="mytext[]" class="form-control"/>' +
+                '<span class="input-group-btn">' +
+                '<a href="#" onClick="removeTextField(' + x + ')" class="remove_field btn btn-danger btn-group"><span class="glyphicon glyphicon-remove"></span></a>' +
+                '</span>' +
+                '</div>' +
+                '</div>'
+            );
+        });
+    });
+
+    function removeTextField(id) {
+        $("#additionalDependent_" + id).remove();
+    }
+
+    $(document).ready(
+        function () {
+            $("#btnSave").click(
+                function () {
+
+                    var data = {
+                        id: $("#idEmployee").val(),
+                        name: $("#name").val(),
+                        email: $("#email").val(),
+                        birthDate: $("#birthDate").val(),
+                        gender: $("#gender").val(),
+                        idRole: $("#idRole").val(),
+                        roleType: $("#roleType").val()
+                        //dependents: [
+                        //    { ... }
+                        //]
+                    };
+
+                    $.ajax(
+                        {
+                            type: "PUT",
+                            url: "http://localhost:53343/api/employee/edit",
+                            data: JSON.stringify(data),
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (msg) {
+                                //$("#message").html(msg.d);
+                                window.location = "GetAll";
+                            },
+                            error: function (e) {
+                                $("#message").html("Error: " + e.status);
+                            }
+                        }
+                    );
+                }
+            );
+        }
+    );
+
+</script>

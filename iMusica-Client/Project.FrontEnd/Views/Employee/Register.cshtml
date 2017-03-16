@@ -25,23 +25,21 @@
                 e.preventDefault();
                 x++;
                 $(wrapper).append(
-                    '<div id="additionalDependent" class="row">' +
-                        '<div class="col-md-11 input-group" style="margin: 5px 0 0 0;">' +
-                            '<input type="text" id="dependent_' + x + '" name="mytext[]" class="form-control"/>' +
-                                '<span class="input-group-btn">' +
-                                    '<a href="#" class="remove_field btn btn-danger btn-group"><span class="glyphicon glyphicon-remove"></span></a>' +
-                                '</span>' +
-                        '</div>' +
+                    '<div id="additionalDependent_' + x + '" class="row">' +
+                    '<div class="col-md-11 input-group" style="margin: 5px 0 0 0;">' +
+                    '<input type="text" id="dependent_' + x + '" name="mytext[]" class="form-control"/>' +
+                    '<span class="input-group-btn">' +
+                    '<a href="#" onClick="removeTextField(' + x + ')" class="remove_field btn btn-danger btn-group"><span class="glyphicon glyphicon-remove"></span></a>' +
+                    '</span>' +
+                    '</div>' +
                     '</div>'
                 );
             });
-
-            $(wrapper).on("click", ".remove_field", function (e) {
-                e.preventDefault();
-                $("#additionalDependent").remove();
-                x--;
-            })
         });
+
+        function removeTextField(id) {
+            $("#additionalDependent_" + id).remove();
+        }
 
     </script>
 
@@ -52,16 +50,14 @@
                 $("#btnRegister").click(
                     function () {
 
-                        //variable for test
-                        var depTest = $("#dependent_0").val(); //at this point the varibale value is ok
-
                         var data = {
                             name: $("#name").val(),
                             email: $("#email").val(),
                             birthDate: $("#birthDate").val(),
-                            gender: $("#gender").val(),                          
+                            gender: $("#gender").val(),
+                            idRole: $("#roles").val(),
                             dependents: [
-                                { "name": depTest } //at this point is ok too, but the api is not getting the value correctly
+                                { "name": $("#dependent_0").val() }
                             ]
                         };
 
@@ -75,12 +71,14 @@
                                 success: function (msg) {
                                     $("#message").html(msg.d);
 
-                                    //cleaning all the fields
-                                    $("#name").val("");
-                                    $("#email").val("");
-                                    $("#birthDate").val("");
-                                    $("#gender").val("");
-                                    $("#dependent_0").val("");
+                                    ////cleaning all the fields
+                                    //$("#name").val("");
+                                    //$("#email").val("");
+                                    //$("#birthDate").val("");
+                                    //$("#gender").val("");
+                                    //$("#dependent_0").val("");
+
+                                    window.location = "GetAll";
                                 },
                                 error: function (e) {
                                     $("#message").html("Error: " + e.status);
@@ -113,15 +111,15 @@
     </div>
     <div class="col-md-4">
         <label>Gender:</label><br />
-        <select class="form-control">
+        <select id="gender" class="form-control">
             <option value="0" selected="selected">-- Choose here --</option>
-            <option value="1">Female</option>
-            <option value="2">Male</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
         </select>
         <br />
 
         <label>Role:</label><br />
-        <select class="form-control">
+        <select class="form-control" id="roles" onchange="getval(this);">
             <option value="0">-- Choose here --</option>
         </select>
         <br />
@@ -151,3 +149,36 @@
         <div id="message"></div>
     </div>
 </div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <input type="hidden" readonly id="idEmployee" class="form-control" /><br />
+        <input type="hidden" readonly id="idRole" class="form-control" />
+    </div>
+</div>
+
+<script type="text/javascript">
+
+        //get new value from role type
+        function getval(sel) {
+            return $("#idRole").val(sel.value);
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:53343/api/role/getAll/",
+            success: function (data) {
+
+                var wrapper = $("#roles");
+
+                for (var i = 0; i < data.length; i++) {
+                    $(wrapper).append(
+                        '<option value="' + data[i].Id + '">' + data[i].RoleType + '</option>'
+                    );
+                }
+            },
+            error: function (e) {
+                $("#message").html("Error: " + e.status);
+            }
+        });
+</script>

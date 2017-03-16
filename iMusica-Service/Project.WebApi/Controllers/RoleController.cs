@@ -17,7 +17,7 @@ namespace Project.WebApi.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public HttpResponseMessage SearchEmployeesByName()
+        public HttpResponseMessage GetAllRoles()
         {
             try
             {
