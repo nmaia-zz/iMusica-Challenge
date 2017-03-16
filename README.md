@@ -6,13 +6,12 @@ This repo was created in order to build a small system to control the employee r
 
 iMusica-Service.sln ![travis-ci](https://travis-ci.org/nmaia/iMusica-Challenge.svg?branch=master)
 
-## We'll use the following stack :point_down:
+## We'll use the following stack
 
-- [ ] Web Api (Restful) :heart_eyes:
-- [ ] N-Hibernate (ORM) :yum:
-- [ ] JQuery :eyes:
-- [ ] .Net Razor :eyes:
-- [x] loading... :hourglass_flowing_sand:
+- [ ] Web Api (Restful)
+- [ ] N-Hibernate (ORM)
+- [ ] JQuery 
+- [ ] .Net Razor
 
 ## Here is some information you need to know in order to test this project locally
 
